@@ -15,33 +15,33 @@ function App() {
     { id: 2, title: 'MJavaScript 2', body: 'ADescription' },
     { id: 3, title: 'DJavaScript 3', body: 'ZDescription' }
   ]);
-  const [filter, setFilter] = useState({sort: '', query: ''})
-  
-  const sortedPost = useMemo(() =>{
+  const [filter, setFilter] = useState({ sort: '', query: '' })
+
+  const sortedPost = useMemo(() => {
     console.log('Функция отработала')
-    if(filter.sort){
-      return [...post].sort ((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-    } else{
+    if (filter.sort) {
+      return [...post].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+    } else {
       return post;
     }
   }, [filter.sort, post]);
-  const sortedAndSearchedPosts = useMemo(() =>{
+  const sortedAndSearchedPosts = useMemo(() => {
     return sortedPost.filter(item => item.title.toLowerCase().includes(filter.query));
-  }, [filter.query,sortedPost])
+  }, [filter.query, sortedPost])
   const createPost = (newPost) => {
     setPost([...post, newPost]);
   }
   const removePost = (posts) => {
     setPost(post.filter(element => element.id !== posts.id))
   }
-  
+
   return (
     <div className="App">
       <PostForm create={createPost} />
       <hr style={{ margin: '15px 0' }}></hr>
-     <PostFilter
-      filter={filter}
-      setFilter={setFilter}
+      <PostFilter
+        filter={filter}
+        setFilter={setFilter}
       />
       <PostList remove={removePost} post={sortedAndSearchedPosts} title='Список постов JavaScript' />
     </div>
