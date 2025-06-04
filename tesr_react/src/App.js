@@ -9,6 +9,7 @@ import MyInput from "./components/UI/input/MyInput";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/MyModal/MyModal";
 function App() {
   const [post, setPost] = useState([
     { id: 1, title: 'AJavaScript 1', body: 'TDescription' },
@@ -16,7 +17,7 @@ function App() {
     { id: 3, title: 'DJavaScript 3', body: 'ZDescription' }
   ]);
   const [filter, setFilter] = useState({ sort: '', query: '' })
-
+  const [modal, setModal] = useState(false);
   const sortedPost = useMemo(() => {
     console.log('Функция отработала')
     if (filter.sort) {
@@ -37,7 +38,12 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
+      <MyButton onClick={() => setModal(true)}>
+        Создать пользователя
+      </MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
       <hr style={{ margin: '15px 0' }}></hr>
       <PostFilter
         filter={filter}
