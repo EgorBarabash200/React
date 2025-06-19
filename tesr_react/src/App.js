@@ -31,14 +31,14 @@ function App() {
   }, [filter.query, sortedPost])
   const createPost = (newPost) => {
     setPost([...post, newPost]);
+    setModal(false);
   }
   const removePost = (posts) => {
     setPost(post.filter(element => element.id !== posts.id))
   }
-
   return (
     <div className="App">
-      <MyButton onClick={() => setModal(true)}>
+      <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
         Создать пользователя
       </MyButton>
       <MyModal visible={modal} setVisible={setModal}>
